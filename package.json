@@ -1,0 +1,42 @@
+{
+  "name": "jm-server",
+  "version": "0.0.1",
+  "description": "a general server using jm-ms",
+  "main": "./lib/index",
+  "scripts": {
+    "start": "node app",
+    "cluster": "node cluster",
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jm-root/jm-server.git"
+  },
+  "keywords": [
+    "javascript",
+    "jm-server"
+  ],
+  "author": {
+    "name": "Jeff YU"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jm-root/jm-server/issues"
+  },
+  "homepage": "https://github.com/jm-root/jm-server",
+  "dependencies": {
+    "jm-ms": "*"
+  },
+  "devDependencies": {
+      "bluebird": "*",
+      "jshint": "*",
+      "gulp": ">=3.5.6",
+      "gulp-clean": ">=0.3.1",
+      "gulp-concat": ">=2.2.0",
+      "gulp-jshint": ">=1.5.1",
+      "gulp-rename": ">=1.2.0",
+      "gulp-sequence": ">=0.3.0",
+      "gulp-uglify": ">=0.3.1",
+      "gulp-util": ">=2.2.14"
+  }
+}
