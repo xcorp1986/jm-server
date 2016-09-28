@@ -1,0 +1,11 @@
+{
+  "appenders": [
+    {
+      "type": "console"
+    }
+  ],
+  "replaceConsole": true,
+  "levels": {
+    "jm-ms-ws:server": "debug"
+  }
+}
