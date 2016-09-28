@@ -1,12 +1,10 @@
 {
   "name": "server",
   "cwd": "",
-  "script": "app.js",
+  "script": "cluster.js",
   "error_file": "../logs/err.log",
   "out_file": "../logs/out.log",
   "pid_file": "../logs/app.pid",
-  "exec_mode": "cluster",
-  "instances": "max",
   "env": {
     "NODE_ENV": "production"
   }
