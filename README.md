@@ -6,6 +6,8 @@ a general server using jm-ms
 start server:
 npm install
 npm start
+or cluster mode:
+npm run cluster
 
 start test:
 npm test
