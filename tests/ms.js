@@ -64,6 +64,10 @@ if (typeof module !== 'undefined' && module.exports) {
 
                     client.post('/subscribe', {channel: 'notice'}, log);
                     client.post('/publish', {channel: 'notice', msg:'a msg'}, log);
+                    client.post('/broadcast', {channel: 'notice', msg:'a broadcast'}, log);
+                    client.post('/unsubscribe', {channel: 'notice'}, log);
+                    client.post('/broadcast', {channel: 'notice', msg:'a broadcast'}, log);
+                    client.post('/subscribe', {channel: 'notice'}, log);
                 });
             });
             resolve(null);

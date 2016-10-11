@@ -25,7 +25,10 @@
   },
   "homepage": "https://github.com/jm-root/jm-server",
   "dependencies": {
-    "jm-ms": "*"
+    "jm-ecs": "*",
+    "jm-common": "*",
+    "jm-ms": "*",
+    "jm-playsdk": "*"
   },
   "devDependencies": {
       "bluebird": "*",
