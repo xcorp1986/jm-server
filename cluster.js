@@ -37,10 +37,6 @@ if (cluster.isMaster) {
     process.on('message', function (msg) {
     });
 
-    setTimeout(function () {
-        process.send({obj: true});
-    }, 3000);
-
     require('./app');
 
 }
