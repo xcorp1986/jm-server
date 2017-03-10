@@ -42,8 +42,4 @@ var env = process.env.NODE_ENV||'development';
 config = config[env]||config['development'];
 config.env = env;
 
-['port', 'debug', 'prefix', 'trustProxy', 'lng'].forEach(function(key) {
-    config[key] = process.env[key] || config[key];
-});
-
 module.exports = config;
