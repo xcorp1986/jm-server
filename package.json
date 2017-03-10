@@ -1,6 +1,6 @@
 {
   "name": "jm-server",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "a general server using jm-ms",
   "main": "./lib/index",
   "scripts": {
@@ -25,10 +25,9 @@
   },
   "homepage": "https://github.com/jm-root/jm-server",
   "dependencies": {
-    "jm-ecs": "*",
-    "jm-common": "*",
     "jm-ms": "*",
-    "jm-playsdk": "*"
+    "jm-ms-help": "*",
+    "jm-ms-message": "*"
   },
   "devDependencies": {
       "bluebird": "*",
