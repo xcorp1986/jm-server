@@ -26,15 +26,7 @@ var config = {
         }
     },
     production: {
-        port: 21000,
-        ms: [
-            {
-                type: 'ws'
-            },
-            {
-                type: 'http'
-            }
-        ]
+        port: 21000
     }
 };
 
