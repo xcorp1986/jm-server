@@ -1,8 +1,0 @@
-{
-  "name": "jm-server",
-  "version": "0.0.1",
-  "description": "apiDoc for jm-server",
-  "title": "apiDoc",
-  "url" : "http://localhost:21080",
-  "sampleUrl" : "http://localhost:21080"
-}

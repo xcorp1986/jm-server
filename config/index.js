@@ -1,11 +1,6 @@
 var config = {
     development: {
-        //mq: 'redis://127.0.0.1',
-        //sdk: 'http://192.168.0.32:20200',
-        user: {
-            account: 'cp',
-            passwd: '123'
-        },
+        debug: true,
         port: 21000,
         ms: [
             {
@@ -14,15 +9,23 @@ var config = {
             {
                 type: 'http'
             }
-        ]
+        ],
+        modules: {
+            '': {
+                module: 'jm-ms-message'
+            },
+            config: {
+                module: 'jm-config',
+                plugins: [],
+                config: {
+                }
+            },
+            sdk: {
+                module: './sdk'
+            }
+        }
     },
     production: {
-        mq: 'redis://127.0.0.1',
-        sdk: 'http://192.168.0.32:20200',
-        user: {
-            id: 'cp',
-            passwd: '123'
-        },
         port: 21000,
         ms: [
             {
@@ -39,7 +42,7 @@ var env = process.env.NODE_ENV||'development';
 config = config[env]||config['development'];
 config.env = env;
 
-['sdk', 'mq', 'db'].forEach(function(key) {
+['port', 'debug', 'prefix', 'trustProxy', 'lng'].forEach(function(key) {
     config[key] = process.env[key] || config[key];
 });
 

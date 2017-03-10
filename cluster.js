@@ -1,17 +1,15 @@
 const cluster = require('cluster');
-
-var numCPUs = require('os').cpus().length;
-
 if (cluster.isMaster) {
+    var numCPUs = require('os').cpus().length;
+    for (var i = 0; i < numCPUs; i++) {
+        cluster.fork();
+    }
+
     var eachWorker = function(cb) {
         for (var id in cluster.workers) {
             cb(cluster.workers[id]);
         }
     };
-
-    for (var i = 0; i < numCPUs; i++) {
-        cluster.fork();
-    }
 
     cluster.on('fork', function (worker) {
         worker.on('message', function (msg) {
@@ -34,9 +32,5 @@ if (cluster.isMaster) {
     });
 
 } else if (cluster.isWorker) {
-    process.on('message', function (msg) {
-    });
-
     require('./app');
-
 }
