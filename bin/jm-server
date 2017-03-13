@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+'use strict';
+const cluster = require('cluster');
+var argv = require('yargs').argv;
+var bCluster = argv.cluster || process.env.cluster;
+if(bCluster){
+    require('./cluster');
+} else {
+    require('./app');
+}

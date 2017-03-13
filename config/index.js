@@ -1,15 +1,8 @@
+require('log4js').configure(__dirname + '/log4js.json');
 var config = {
     development: {
         debug: true,
         port: 21000,
-        ms: [
-            {
-                type: 'ws'
-            },
-            {
-                type: 'http'
-            }
-        ],
         modules: {
             '': {
                 module: 'jm-ms-message'
@@ -30,7 +23,7 @@ var config = {
     }
 };
 
-var env = process.env.NODE_ENV||'development';
+var env = process.env.NODE_ENV ||'development';
 config = config[env]||config['development'];
 config.env = env;
 
