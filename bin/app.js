@@ -15,6 +15,7 @@ var colors = require('colors'),
         .alias('d', 'debug')
         .alias('t', 'trustProxy')
         .alias('l', 'lng')
+        .alias('D', 'daemon')
         .argv;
 
 if(argv.v) {
@@ -40,6 +41,7 @@ if (argv.h || argv.help) {
         '  -l --lng     language [zh]',
         '  --production set NODE_ENV to production',
         '  --cluster    run in cluster mode',
+        '  -D --daemon  run in the background',
         '',
         '  -U --utc     Use UTC time format in log messages.',
         '',

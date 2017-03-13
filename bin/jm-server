@@ -2,10 +2,53 @@
 
 'use strict';
 const cluster = require('cluster');
-var argv = require('yargs').argv;
-var bCluster = argv.cluster || process.env.cluster;
-if(bCluster){
-    require('./cluster');
+var
+    fs = require('fs'),
+    path = require('path'),
+    spawn = require('child_process').spawn,
+    argv = require('yargs')
+        .alias('D', 'daemon')
+        .argv
+    ;
+
+var root = argv._[0];
+if (root && !path.isAbsolute(root)) {
+    root = path.join(process.cwd(), root);
+}
+root || (root = process.cwd());
+
+var isProject = true;
+var pkgFile = path.join(root, '/package.json');
+try {
+    fs.accessSync(pkgFile, fs.constants.R_OK);
+}
+catch (e) {
+    isProject = false;
+}
+
+if(isProject) {
+    var ls;
+    var absScript = path.resolve(root, 'node_modules/jm-server/bin/jm-server');
+    var params = process.argv.slice(1);
+    params[0] = absScript;
+    if (argv.daemon) {
+        ls = spawn(process.execPath, params, {detached: true, stdio: 'ignore'});
+        ls.unref();
+        process.exit(0);
+    } else {
+        ls = spawn(process.execPath, params);
+        ls.stdout.on('data', function(data) {
+            console.log(data.toString());
+        });
+        ls.stderr.on('data', function(data) {
+            console.log(data.toString());
+        });
+    }
 } else {
-    require('./app');
+    var bCluster = argv.cluster || process.env.cluster;
+    if(bCluster){
+        require('./cluster');
+    } else {
+        require('./app');
+    }
 }
