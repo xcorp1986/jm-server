@@ -1,2 +1,1 @@
-process.env.cluster = true;
-require('./app');
+require('./bin/cluster');

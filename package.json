@@ -1,6 +1,6 @@
 {
   "name": "jm-server",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "a general server using jm-ms",
   "main": "./lib/index",
   "scripts": {

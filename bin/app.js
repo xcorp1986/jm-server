@@ -6,8 +6,6 @@ var colors = require('colors'),
     fs = require('fs'),
     path = require('path'),
     argv = require('yargs')
-        .alias('v', 'version')
-        .alias('h', 'help')
         .alias('c', 'config')
         .alias('p', 'port')
         .alias('a', 'host')
@@ -17,42 +15,6 @@ var colors = require('colors'),
         .alias('l', 'lng')
         .alias('D', 'daemon')
         .argv;
-
-if(argv.v) {
-    require('jm-ms-help');
-    jm.ms.help({}, function (err, doc) {
-        console.log('%j', doc);
-    });
-    return;
-}
-
-if (argv.h || argv.help) {
-    console.log([
-        'usage: jm-server [path] [options]',
-        '',
-        'options:',
-        '  -v --version Version info.',
-        '  -c --config  config file.',
-        '  -p --port    Port to use [3000]',
-        '  -a --host    Address to use [0.0.0.0]',
-        '  -f --prefix  Uri prefix []',
-        '  -d --debug   Debug mode [false]',
-        '  -t --trustProxy  trustProxy [false]',
-        '  -l --lng     language [zh]',
-        '  --production set NODE_ENV to production',
-        '  --cluster    run in cluster mode',
-        '  -D --daemon  run in the background',
-        '',
-        '  -U --utc     Use UTC time format in log messages.',
-        '',
-        '  -S --ssl     Enable https.',
-        '  -C --cert    Path to ssl cert file (default: cert.pem).',
-        '  -K --key     Path to ssl key file (default: key.pem).',
-        '',
-        '  -h --help    Print this list and exit.'
-    ].join('\n'));
-    process.exit();
-}
 
 var root = argv._[0];
 if (root && !path.isAbsolute(root)) {
