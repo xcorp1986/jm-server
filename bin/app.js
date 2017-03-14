@@ -24,7 +24,7 @@ root || (root = process.cwd());
 
 configure();
 
-var config = {};
+var config = null;
 function configure() {
     var configFile = argv.c;
     if (configFile && !path.isAbsolute(configFile)) {
@@ -35,7 +35,10 @@ function configure() {
         if (!err) {
             if(argv.production) process.env.NODE_ENV = 'production';
             config = require(configFile);
+        } else {
+            console.warn('no config file found %s'.red, configFile);
         }
+        config || (config = {});
         ['host', 'port', 'debug', 'prefix', 'trustProxy', 'lng'].forEach(function(key) {
             argv[key] && (config[key] = argv[key]);
         });

@@ -6,6 +6,7 @@
   ],
   "replaceConsole": true,
   "levels": {
-    "jm-ms-ws:server": "debug"
+    "jm-ms-ws:server": "info",
+    "jm-ms-http:server": "info"
   }
 }
