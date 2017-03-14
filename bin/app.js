@@ -22,32 +22,33 @@ if (root && !path.isAbsolute(root)) {
 }
 root || (root = process.cwd());
 
-configure();
-
 var config = null;
+configure();
+module.exports = start_app();
+
 function configure() {
     var configFile = argv.c;
     if (configFile && !path.isAbsolute(configFile)) {
         configFile = path.join(root, configFile);
     }
     configFile || (configFile = path.join(root, '/config'));
-    fs.access(configFile, fs.constants.R_OK, function (err) {
-        if (!err) {
-            if(argv.production) process.env.NODE_ENV = 'production';
-            config = require(configFile);
-        } else {
-            console.warn('no config file found %s'.red, configFile);
-        }
-        config || (config = {});
-        ['host', 'port', 'debug', 'prefix', 'trustProxy', 'lng'].forEach(function(key) {
-            argv[key] && (config[key] = argv[key]);
-        });
-        start_app();
+
+    if(argv.production) process.env.NODE_ENV = 'production';
+    try {
+        fs.accessSync(configFile, fs.constants.R_OK);
+        config = require(configFile);
+    }
+    catch (e) {
+        console.warn('no config file found %s'.red, configFile);
+    }
+    config || (config = {});
+    ['host', 'port', 'debug', 'prefix', 'trustProxy', 'lng'].forEach(function(key) {
+        argv[key] && (config[key] = argv[key]);
     });
 };
 
 function start_app() {
-    require('../lib')(config);
+    return require('../lib')(config);
 };
 
 function stop_app() {
