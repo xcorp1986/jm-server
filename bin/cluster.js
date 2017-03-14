@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+
+'use strict';
 const cluster = require('cluster');
 if (cluster.isMaster) {
     var numCPUs = require('os').cpus().length;
