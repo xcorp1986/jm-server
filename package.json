@@ -1,6 +1,6 @@
 {
   "name": "jm-server",
-  "version": "0.0.13",
+  "version": "0.1.0",
   "description": "a general server using jm-ms",
   "main": "./lib/index",
   "scripts": {
@@ -27,11 +27,15 @@
   "dependencies": {
     "colors": "*",
     "yargs": "*",
+    "sprintf-js": "*",
     "jm-ms": "*",
     "jm-ms-help": "*",
     "jm-ms-message": "*"
   },
   "devDependencies": {
+      "i18next": "*",
+      "i18next-sync-fs-backend": "*",
+      "jm-config": "*",
       "bluebird": "*",
       "jshint": "*",
       "gulp": ">=3.5.6",
