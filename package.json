@@ -27,11 +27,15 @@
   "dependencies": {
     "colors": "*",
     "yargs": "*",
+    "sprintf-js": "*",
     "jm-ms": "*",
     "jm-ms-help": "*",
     "jm-ms-message": "*"
   },
   "devDependencies": {
+      "i18next": "*",
+      "i18next-sync-fs-backend": "*",
+      "jm-config": "*",
       "bluebird": "*",
       "jshint": "*",
       "gulp": ">=3.5.6",
