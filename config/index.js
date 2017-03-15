@@ -4,17 +4,9 @@ var config = {
         debug: true,
         port: 21000,
         modules: {
-            '': {
-                module: 'jm-ms-message'
-            },
+            'messages': 'jm-ms-message',
             config: {
-                module: 'jm-config',
-                plugins: [],
-                config: {
-                }
-            },
-            sdk: {
-                module: './sdk'
+                module: 'jm-config'
             }
         }
     },
