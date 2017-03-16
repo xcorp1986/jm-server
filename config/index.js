@@ -7,7 +7,8 @@ var config = {
             i18next: process.cwd() + '/locales',
             messages: 'jm-ms-message',
             config: {
-                module: 'jm-config'
+                require: ['jm-config'],
+                proxy: 'ws://localhost:20000/config'
             }
         }
     },
