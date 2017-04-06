@@ -1,6 +1,6 @@
 {
   "name": "jm-server",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "a general server using jm-ms",
   "main": "./lib/index",
   "scripts": {
@@ -28,6 +28,7 @@
     "colors": "*",
     "yargs": "*",
     "sprintf-js": "*",
+    "jm-core": "^0.0.7",
     "jm-ms": "*",
     "jm-ms-help": "*",
     "jm-ms-message": "*"
