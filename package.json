@@ -1,6 +1,6 @@
 {
   "name": "jm-server",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "a general server using jm-ms",
   "main": "./lib/index",
   "scripts": {
@@ -25,28 +25,28 @@
   },
   "homepage": "https://github.com/jm-root/jm-server",
   "dependencies": {
-    "colors": "*",
-    "yargs": "*",
-    "sprintf-js": "*",
-    "jm-core": "^0.0.7",
-    "jm-ms": "*",
-    "jm-ms-help": "*",
-    "jm-ms-message": "*"
+    "jm-core": "~0",
+    "jm-ms": "~0",
+    "jm-ms-help": "~0",
+    "jm-ms-message": "~0",
+    "colors": "^1.1.2",
+    "sprintf-js": "^1.0.3",
+    "yargs": "^7.0.2"
   },
   "devDependencies": {
-      "i18next": "*",
-      "i18next-sync-fs-backend": "*",
-      "jm-config": "*",
-      "bluebird": "*",
-      "jshint": "*",
-      "gulp": ">=3.5.6",
-      "gulp-clean": ">=0.3.1",
-      "gulp-concat": ">=2.2.0",
-      "gulp-jshint": ">=1.5.1",
-      "gulp-rename": ">=1.2.0",
-      "gulp-sequence": ">=0.3.0",
-      "gulp-uglify": ">=0.3.1",
-      "gulp-util": ">=2.2.14"
+    "i18next": "*",
+    "i18next-sync-fs-backend": "*",
+    "jm-config": "*",
+    "bluebird": "*",
+    "jshint": "*",
+    "gulp": ">=3.5.6",
+    "gulp-clean": ">=0.3.1",
+    "gulp-concat": ">=2.2.0",
+    "gulp-jshint": ">=1.5.1",
+    "gulp-rename": ">=1.2.0",
+    "gulp-sequence": ">=0.3.0",
+    "gulp-uglify": ">=0.3.1",
+    "gulp-util": ">=2.2.14"
   },
   "bin": {
     "jm-server": "./bin/jm-server",
