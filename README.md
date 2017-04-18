@@ -26,7 +26,6 @@ lng [''] 语言
 
 ## config/index.js
 
-```javascript
 var config = {
     development: {
         //....
@@ -49,4 +48,4 @@ var config = {
         port: 21000
     }
 };
-```
+
