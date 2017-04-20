@@ -4,6 +4,9 @@
 const cluster = require('cluster');
 if (cluster.isMaster) {
     var numCPUs = require('os').cpus().length;
+    ['maxcpus'].forEach(function (key) {
+        process.env[key] && (numCPUs = parseInt(process.env[key]));
+    });
     for (var i = 0; i < numCPUs; i++) {
         cluster.fork();
     }
