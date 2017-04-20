@@ -24,6 +24,8 @@ trustProxy [false] 是否传递IP地址
 
 lng [''] 语言
 
+maxcpus 只支持环境变量设置, 限制cluster运行模式时能够使用的最多cpu数量, 默认使用全部
+
 ## config/index.js
 
 ```javascript
