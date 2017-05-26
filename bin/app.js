@@ -42,7 +42,7 @@ function configure() {
         console.warn('no config file found %s'.red, configFile);
     }
     config || (config = {});
-    ['host', 'port', 'debug', 'prefix', 'trustProxy', 'lng'].forEach(function(key) {
+    ['host', 'port', 'debug', 'prefix', 'trustProxy', 'lng', 'maxBodySize'].forEach(function(key) {
         argv[key] && (config[key] = argv[key]);
     });
 };
