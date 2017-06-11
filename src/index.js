@@ -1,8 +1,21 @@
-var jm = require('jm-ms');
-var ms = jm.ms;
-if (jm.server) return;
-var ERR = jm.ERR;
-var logger = jm.getLogger('jm-server');
+import JM from 'jm-core';
+import moduleLog4js from 'jm-log4js';
+import MS from 'jm-ms-core';
+import msHttp from 'jm-ms-http';
+import routerHelp from './help';
+import routerModule from './module';
+
+let jm = new JM();
+jm.use(moduleLog4js);
+
+let ms = new MS();
+ms
+    .use(msHttp.moduleServer)
+    .use(msHttp.moduleClient)
+;
+
+let ERR = jm.Err;
+let logger = jm.getLogger('jm-server');
 
 /**
  * server
@@ -16,9 +29,8 @@ var logger = jm.getLogger('jm-server');
  * @example
  * 返回结果: server对象
  */
-jm.server = function (opts) {
-    opts = opts || {};
-    var config = opts;
+let server = function (opts = {}) {
+    let config = opts;
     ['host', 'port', 'debug', 'prefix', 'trustProxy', 'lng', 'disableAutoInit', 'disableAutoOpen', 'maxBodySize'].forEach(function (key) {
         process.env[key] && (config[key] = process.env[key]);
     });
@@ -26,12 +38,12 @@ jm.server = function (opts) {
         logger.debug('config: %s', jm.utils.formatJSON(config));
     }
 
-    var app = {
+    let app = {
         config: config,
 
         clear: function() {
-            this.root = ms();
-            this.router = ms();
+            this.root = ms.router();
+            this.router = ms.router();
             this.moduleConfigs = {};
             this.modules = {};
             this.routers = {};
@@ -41,10 +53,10 @@ jm.server = function (opts) {
         init: function(opts, cb) {
             this.clear();
             this.emit('init', opts);
-            require('./help')(this);
+            routerHelp(this);
             if (config.modules) app.uses(config.modules);
             this.emit('uses', this);
-            require('./module')(this);
+            routerModule(this);
             this.root.use(config.prefix || '', this.router);
             if(cb) cb(null, true);
             return this;
@@ -78,17 +90,17 @@ jm.server = function (opts) {
             }
 
             if(opts.require) {
-                var v = opts.require;
+                let v = opts.require;
                 if (typeof v === 'string') v = [v];
-                for (var k in v) {
+                for (let k in v) {
                     require(v[k]);
                 }
             }
 
-            var module = null;
-            var router = null;
+            let module = null;
+            let router = null;
             if(opts.proxy) {
-                var router = ms();
+                let router = ms.router();
                 module = router;
                 router.proxy('/', opts.proxy, function (err, doc) {
                     if (err) {
@@ -101,7 +113,7 @@ jm.server = function (opts) {
                     logger.warn('use failed. %s: %j', name, opts);
                     return this;
                 }
-                var Module = require(opts.module);
+                let Module = require(opts.module);
                 if (typeof Module === 'function') {
                     module = Module(opts.config || config, app);
                 } else {
@@ -109,7 +121,7 @@ jm.server = function (opts) {
                 }
 
                 if(module){
-                    if (module instanceof jm.ms.Router) {
+                    if (module.request || module.handle) {
                         router = module;
                     } else if (module.router) {
                         router = module.router();
@@ -119,7 +131,7 @@ jm.server = function (opts) {
 
             name || (name = '');
             if (router) {
-                var prefix = '/' + name;
+                let prefix = '/' + name;
                 opts.config && opts.config.prefix && (prefix = opts.config.prefix);
                 opts.prefix && (prefix = opts.prefix);
                 this.router.use(prefix, router);
@@ -145,14 +157,14 @@ jm.server = function (opts) {
          * @returns {Object}
          */
         uses: function (opts) {
-            for (var name in opts) {
+            for (let name in opts) {
                 this.use(name, opts[name]);
             }
             return this;
         },
 
         unuse: function (name) {
-            var r = this.routers[name];
+            let r = this.routers[name];
             this.modules[name] = null;
             this.routers[name] = null;
             if (r) r.clear();
@@ -165,4 +177,6 @@ jm.server = function (opts) {
     if (!opts.disableAutoOpen) app.open();
     return app;
 };
-jm.enableEvent(jm.server);
+jm.enableEvent(server);
+
+export default server;
