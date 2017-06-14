@@ -2,6 +2,7 @@ import JM from 'jm-core';
 import moduleLog4js from 'jm-log4js';
 import MS from 'jm-ms-core';
 import msHttp from 'jm-ms-http';
+import msWS from 'jm-ms-ws';
 
 import http from 'http';
 import https from 'https';
@@ -17,6 +18,8 @@ let ms = new MS();
 ms
     .use(msHttp.moduleServer)
     .use(msHttp.moduleClient)
+    .use(msWS.moduleServer)
+    .use(msWS.moduleClient)
 ;
 
 module.exports = function (app) {

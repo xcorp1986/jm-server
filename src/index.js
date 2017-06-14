@@ -1,7 +1,6 @@
 import JM from 'jm-core';
 import moduleLog4js from 'jm-log4js';
 import MS from 'jm-ms-core';
-import msHttp from 'jm-ms-http';
 import routerHelp from './help';
 import routerModule from './module';
 
@@ -9,10 +8,6 @@ let jm = new JM();
 jm.use(moduleLog4js);
 
 let ms = new MS();
-ms
-    .use(msHttp.moduleServer)
-    .use(msHttp.moduleClient)
-;
 
 let ERR = jm.Err;
 let logger = jm.getLogger('jm-server');

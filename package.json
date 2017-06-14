@@ -1,6 +1,6 @@
 {
   "name": "jm-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a general server using jm-ms",
   "main": "./lib/index",
   "scripts": {
@@ -29,15 +29,14 @@
     "jm-log4js": "^1.1.0",
     "jm-ms-core": "^1.0.1",
     "jm-ms-help": "^1.0.0",
-    "jm-ms-http": "~1.0.0",
-    "jm-ms-message": "~0",
+    "jm-ms-http": "~1.0.1",
+    "jm-ms-ws": "~1.0.0",
     "sprintf-js": "^1.0.3",
     "yargs": "^7.0.2"
   },
   "devDependencies": {
     "i18next": "*",
     "i18next-sync-fs-backend": "*",
-    "jm-config": "*",
     "babel-cli": "^6.24.1",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-env": "^1.5.1",
