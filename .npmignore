@@ -1,7 +1,7 @@
 .git
 .idea
 .svn
-.dockerignore
-.gitignore
-Dockerfile
-doc
+examples
+src
+bench
+docs

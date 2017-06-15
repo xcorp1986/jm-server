@@ -1,18 +1,8 @@
-'use strict';
+import helper from 'jm-ms-help';
+import MS from 'jm-ms-core';
+let ms = new MS();
 
-var _jmMsHelp = require('jm-ms-help');
-
-var _jmMsHelp2 = _interopRequireDefault(_jmMsHelp);
-
-var _jmMsCore = require('jm-ms-core');
-
-var _jmMsCore2 = _interopRequireDefault(_jmMsCore);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ms = new _jmMsCore2.default();
-
-module.exports = function (app) {
+module.exports = function(app) {
     var router = ms.router();
     var modules = app.modules;
     router.add('/', 'get', function (opts, cb, next) {
@@ -32,6 +22,6 @@ module.exports = function (app) {
         opts.help.modules = _modules;
         next();
     });
-    _jmMsHelp2.default.enableHelp(router, require('../package.json'));
+    helper.enableHelp(router, require('../package.json'));
     app.router.use(router);
 };

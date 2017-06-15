@@ -1,4 +1,4 @@
-var jm = require('jm-core');
+require('jm-core');
 
 var translate_ERR = function (lan, ns, o, key) {
     if(o.err !== undefined) {
@@ -19,6 +19,6 @@ var translate_ERR = function (lan, ns, o, key) {
 };
 
 module.exports = function(lan) {
-    var ERR = jm.ERR;
-    translate_ERR(lan, '', ERR, 'ERR');
+    var Err = jm.Err;
+    translate_ERR(lan, '', Err, 'Err');
 };
