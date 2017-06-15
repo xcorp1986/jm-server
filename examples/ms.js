@@ -1,13 +1,14 @@
-var jm = jm || {};
 if (typeof module !== 'undefined' && module.exports) {
-    jm = require('jm-ms');
+    require('jm-ms-core');
+    require('jm-ms-http');
+    require('jm-ms-ws');
     Promise = require('bluebird');
 }
 
 (function(){
     var ms = jm.ms;
     var logger = jm.logger;
-    var utils = ms.utils;
+    var utils = jm.utils;
 
     var log = function(err, doc){
         if (err) {
@@ -62,12 +63,12 @@ if (typeof module !== 'undefined' && module.exports) {
                         log(err, doc);
                     });
 
-                    client.post('/subscribe', {channel: 'notice'}, log);
-                    client.post('/publish', {channel: 'notice', msg:'a msg'}, log);
-                    client.post('/broadcast', {channel: 'notice', msg:'a broadcast'}, log);
-                    client.post('/unsubscribe', {channel: 'notice'}, log);
-                    client.post('/broadcast', {channel: 'notice', msg:'a broadcast'}, log);
-                    client.post('/subscribe', {channel: 'notice'}, log);
+                    client.post('/messages/subscribe', {channel: 'notice'}, log);
+                    client.post('/messages/publish', {channel: 'notice', msg:'a msg'}, log);
+                    client.post('/messages/broadcast', {channel: 'notice', msg:'a broadcast'}, log);
+                    client.post('/messages/unsubscribe', {channel: 'notice'}, log);
+                    client.post('/messages/broadcast', {channel: 'notice', msg:'a broadcast'}, log);
+                    client.post('/messages/subscribe', {channel: 'notice'}, log);
                 });
             });
             resolve(null);

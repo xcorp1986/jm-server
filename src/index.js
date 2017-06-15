@@ -110,7 +110,7 @@ let server = function (opts = {}) {
                 }
                 let Module = require(opts.module);
                 if (typeof Module === 'function') {
-                    module = Module(opts.config || config, app);
+                    module = Module.call(app, opts.config || config, app);
                 } else {
                     module = Module;
                 }
