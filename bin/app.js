@@ -40,6 +40,7 @@ function configure() {
     }
     catch (e) {
         console.warn('no config file found %s'.red, configFile);
+        console.error(e.stack);
     }
     config || (config = {});
     ['host', 'port', 'debug', 'prefix', 'trustProxy', 'lng', 'maxBodySize'].forEach(function(key) {
