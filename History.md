@@ -1,5 +1,8 @@
 # History
 
+## 1.0.2 / 2017-06-24
+- add module config: noRouter
+
 ## 1.0.1 / 2017-06-14
 - support websocket
 

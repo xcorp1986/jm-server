@@ -118,7 +118,7 @@ let server = function (opts = {}) {
                 if(module){
                     if (module.request || module.handle) {
                         router = module;
-                    } else if (module.router) {
+                    } else if (module.router && !opts.noRouter) {
                         router = module.router();
                     }
                 }
