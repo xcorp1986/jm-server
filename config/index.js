@@ -3,6 +3,7 @@ var config = {
     development: {
         debug: true,
         port: 21000,
+        lng: 'zh_CN',
         modules: {
             i18next: process.cwd() + '/locales',
             messages: 'jm-ms-message',
