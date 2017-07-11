@@ -101,6 +101,15 @@ module.exports = function (app) {
             });
         }
 
+        if(app.config.lng){
+            let router = express.Router();
+            servers.http.middle = router;
+            router.use(function (req, res, next) {
+                req.lng = app.config.lng;
+                next();
+            });
+        }
+
         this.emit('open', opts);
         if (cb) cb(null, true);
         return this;

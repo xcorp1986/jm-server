@@ -52,6 +52,12 @@ let server = function (opts = {}) {
             if (config.modules) app.uses(config.modules);
             this.emit('uses', this);
             routerModule(this);
+            if(config.lng) {
+                this.root.use(config.prefix || '', function(opts, cb, next){
+                    opts.lng = config.lng;
+                    next();
+                });
+            }
             this.root.use(config.prefix || '', this.router);
             if(cb) cb(null, true);
             return this;
