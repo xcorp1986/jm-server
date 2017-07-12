@@ -1,5 +1,8 @@
 # History
 
+## 1.0.5 / 2017-07-12
+- lng filter at first
+
 ## 1.0.4 / 2017-07-12
 - support proxy
 - using jm-ms

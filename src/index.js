@@ -46,16 +46,16 @@ let server = function (opts = {}) {
         init: function (opts, cb) {
             this.clear();
             this.emit('init', opts);
-            routerHelp(this);
-            if (config.modules) app.uses(config.modules);
-            this.emit('uses', this);
-            routerModule(this);
             if (config.lng) {
                 this.root.use(config.prefix || '', function (opts, cb, next) {
                     opts.lng = config.lng;
                     next();
                 });
             }
+            routerHelp(this);
+            if (config.modules) app.uses(config.modules);
+            this.emit('uses', this);
+            routerModule(this);
             this.root.use(config.prefix || '', this.router);
             if (cb) cb(null, true);
             return this;
