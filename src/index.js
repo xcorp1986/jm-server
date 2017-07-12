@@ -1,15 +1,13 @@
 import JM from 'jm-core';
 import moduleLog4js from 'jm-log4js';
-import MS from 'jm-ms-core';
+import _ms from 'jm-ms';
 import routerHelp from './help';
 import routerModule from './module';
 
 let jm = new JM();
 jm.use(moduleLog4js);
 
-let ms = new MS();
-
-let ERR = jm.Err;
+let ms = _ms();
 let logger = jm.getLogger('jm-server');
 
 /**
@@ -36,7 +34,7 @@ let server = function (opts = {}) {
     let app = {
         config: config,
 
-        clear: function() {
+        clear: function () {
             this.root = ms.router();
             this.router = ms.router();
             this.moduleConfigs = {};
@@ -45,21 +43,21 @@ let server = function (opts = {}) {
             this.servers = {};
         },
 
-        init: function(opts, cb) {
+        init: function (opts, cb) {
             this.clear();
             this.emit('init', opts);
             routerHelp(this);
             if (config.modules) app.uses(config.modules);
             this.emit('uses', this);
             routerModule(this);
-            if(config.lng) {
-                this.root.use(config.prefix || '', function(opts, cb, next){
+            if (config.lng) {
+                this.root.use(config.prefix || '', function (opts, cb, next) {
                     opts.lng = config.lng;
                     next();
                 });
             }
             this.root.use(config.prefix || '', this.router);
-            if(cb) cb(null, true);
+            if (cb) cb(null, true);
             return this;
         },
 
@@ -90,7 +88,7 @@ let server = function (opts = {}) {
                 opts = {module: opts};
             }
 
-            if(opts.require) {
+            if (opts.require) {
                 let v = opts.require;
                 if (typeof v === 'string') v = [v];
                 for (let k in v) {
@@ -100,8 +98,8 @@ let server = function (opts = {}) {
 
             let module = null;
             let router = null;
-            if(opts.proxy) {
-                let router = ms.router();
+            if (opts.proxy) {
+                router = ms.router();
                 module = router;
                 router.proxy('/', opts.proxy, function (err, doc) {
                     if (err) {
@@ -121,7 +119,7 @@ let server = function (opts = {}) {
                     module = Module;
                 }
 
-                if(module){
+                if (module) {
                     if (module.request || module.handle) {
                         router = module;
                     } else if (module.router && !opts.noRouter) {

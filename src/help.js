@@ -2,15 +2,15 @@ import helper from 'jm-ms-help';
 import MS from 'jm-ms-core';
 let ms = new MS();
 
-module.exports = function(app) {
-    var router = ms.router();
-    var modules = app.modules;
+module.exports = function (app) {
+    let router = ms.router();
+    let modules = app.modules;
     router.add('/', 'get', function (opts, cb, next) {
         opts.help || (opts.help = {});
-        var _modules = {};
-        var status = 1;
-        for (var key in modules) {
-            var module = modules[key];
+        let _modules = {};
+        let status = 1;
+        for (let key in modules) {
+            let module = modules[key];
             _modules[key] = 1;
             if (!module || module.ready === undefined) continue;
             if (!module.ready) {
