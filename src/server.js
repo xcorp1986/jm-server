@@ -89,7 +89,7 @@ module.exports = function (app) {
             opts.server = server;
             opts.app = appWeb;
             ms.server(root, opts, function (err, doc) {
-                if(err) {
+                if (err) {
                     logger.error(err.stack);
                     return;
                 }
@@ -101,7 +101,7 @@ module.exports = function (app) {
             });
         }
 
-        if(app.config.lng){
+        if (app.config.lng) {
             let router = express.Router();
             servers.http.middle = router;
             router.use(function (req, res, next) {

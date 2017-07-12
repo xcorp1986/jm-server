@@ -2,10 +2,9 @@ require('log4js').configure(__dirname + '/log4js.json');
 var config = {
     development: {
         debug: true,
-        port: 21000,
         lng: 'zh_CN',
+        port: 3000,
         modules: {
-            i18next: process.cwd() + '/locales',
             messages: 'jm-ms-message',
             // config: {
             //     require: ['jm-config'],
@@ -14,7 +13,8 @@ var config = {
         }
     },
     production: {
-        port: 21000
+        lng: 'zh_CN',
+        port: 3000
     }
 };
 

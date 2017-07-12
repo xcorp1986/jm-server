@@ -1,5 +1,12 @@
 # History
 
+## 1.0.4 / 2017-07-12
+- support proxy
+- using jm-ms
+
+## 1.0.3 / 2017-07-12
+- lng
+
 ## 1.0.2 / 2017-06-24
 - add module config: noRouter
 

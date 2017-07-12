@@ -1,9 +1,8 @@
 import MS from 'jm-ms-core';
 let ms = new MS();
 
-module.exports = function(app) {
+module.exports = function (app) {
     let router = ms.router();
-    let modules = app.modules;
     router.add('/', 'get', function (opts, cb, next) {
         cb(null, app.moduleConfigs);
     });
