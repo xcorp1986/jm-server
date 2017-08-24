@@ -16,8 +16,8 @@ let logger = jm.getLogger('jm-server')
  * @param {Object} [opts={}] 参数
  * @example
  * opts参数:{
-     *  modules: (模块)
-     * }
+ *  modules: (模块)
+ * }
  * @returns {Object}
  * @example
  * 返回结果: server对象
@@ -53,15 +53,15 @@ let server = function (opts = {}) {
         })
       }
       if (!config.trustProxy) {
-        this.root.use(function(opts, cb, next){
-          if(opts.headers && opts.headers['x-forwarded-for']) {
+        this.root.use(function (opts, cb, next) {
+          if (opts.headers && opts.headers['x-forwarded-for']) {
             delete opts.headers['x-forwarded-for']
           }
           next()
         })
       }
       if (config.debug) {
-        this.root.use(function(opts, cb, next){
+        this.root.use(function (opts, cb, next) {
           logger.debug('request: %j', opts)
           next()
         })
@@ -76,26 +76,26 @@ let server = function (opts = {}) {
     },
 
     /**
-         * 添加模块
-         * 支持多种参数格式, 例如
-         * use(name, {module:module})
-         * use(name, module)
-         * @function server#use
-         * @param {String} name 模块名称
-         * @param {Object} opts 参数
-         * @example
-         * opts参数:
-         * 'jm-config'
-         * 或者对象
-         * {
-         *  module: jm-config(必填)
-         * }
-         * 或者代理
-         * {
-         *  proxy: uri(必填)
-         * }
-         * @returns {Object}
-         */
+     * 添加模块
+     * 支持多种参数格式, 例如
+     * use(name, {module:module})
+     * use(name, module)
+     * @function server#use
+     * @param {String} name 模块名称
+     * @param {Object} opts 参数
+     * @example
+     * opts参数:
+     * 'jm-config'
+     * 或者对象
+     * {
+     *  module: jm-config(必填)
+     * }
+     * 或者代理
+     * {
+     *  proxy: uri(必填)
+     * }
+     * @returns {Object}
+     */
     use: function (name, opts) {
       opts || (opts = {})
       if (typeof opts === 'string') {
@@ -158,17 +158,17 @@ let server = function (opts = {}) {
     },
 
     /**
-         * 添加多个模块
-         * @function server#uses
-         * @param {Object} opts 参数
-         * @example
-         * opts参数:{
-             *  : {module: 'jm-ms-message'},
-             *  config: jm-config,
-             *  config1: jm-config1
-             * }
-         * @returns {Object}
-         */
+     * 添加多个模块
+     * @function server#uses
+     * @param {Object} opts 参数
+     * @example
+     * opts参数:{
+     *  : {module: 'jm-ms-message'},
+     *  config: jm-config,
+     *  config1: jm-config1
+     * }
+     * @returns {Object}
+     */
     uses: function (opts) {
       for (let name in opts) {
         this.use(name, opts[name])
