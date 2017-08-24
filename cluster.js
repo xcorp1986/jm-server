@@ -1,1 +1,1 @@
-require('./bin/cluster');
+require('./bin/cluster')
