@@ -1,5 +1,9 @@
 # History
 
+## 1.0.6 / 2017-08-24
+- fix trustProxy bug
+- logger in debug mode
+
 ## 1.0.5 / 2017-07-12
 - lng filter at first
 
