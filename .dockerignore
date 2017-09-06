@@ -1,2 +1,5 @@
 *.md
+src
+test
+examples
 node_modules

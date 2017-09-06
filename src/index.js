@@ -1,3 +1,5 @@
+import proxy from 'http-proxy-middleware'
+import express from 'express'
 import JM from 'jm-core'
 import moduleLog4js from 'jm-log4js'
 import _ms from 'jm-ms'
@@ -113,13 +115,33 @@ let server = function (opts = {}) {
       let module = null
       let router = null
       if (opts.proxy) {
-        router = ms.router()
-        module = router
-        router.proxy('/', opts.proxy, function (err, doc) {
-          if (err) {
-            return logger.warn('proxy failed. %j\nreturn: %j\n%s', opts, doc || '', err.stack)
+        if (opts.direct) {
+          router = express.Router()
+          let changeOrigin = true
+          if (opts.changeOrigin !== undefined) changeOrigin = opts.changeOrigin
+          let options = {
+            target: opts.proxy,
+            changeOrigin: changeOrigin, // needed for virtual hosted sites
+            onProxyReq: function (proxyReq, req, res) {
+            },
+            onProxyRes: function (proxyRes, req, res) {
+            }
           }
-        })
+          router.use(proxy(opts.prefix || '/', options))
+
+          app.on('open', function () {
+            app.servers.http.middle.use(router)
+          })
+          module = router
+        } else {
+          router = ms.router()
+          module = router
+          router.proxy('/', opts.proxy, function (err, doc) {
+            if (err) {
+              return logger.warn('proxy failed. %j\nreturn: %j\n%s', opts, doc || '', err.stack)
+            }
+          })
+        }
       } else {
         opts.module || (opts.module = name)
         if (!opts.module && !opts.require) {

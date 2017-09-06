@@ -25,16 +25,16 @@ module.exports = function (app) {
   let server = null
 
   /**
-     * 启动服务器
-     * @method server#start
-     * 成功响应:
-     * doc: 结果true成功 false失败
-     * 错误响应:
-     * doc: {
+   * 启动服务器
+   * @method server#start
+   * 成功响应:
+   * doc: 结果true成功 false失败
+   * 错误响应:
+   * doc: {
      *  err: 错误码,
      *  msg: 错误信息
      * }
-     */
+   */
   app.open = function (opts, cb) {
     this.emit('beforeOpen', opts)
     opts = opts || {}
@@ -67,7 +67,11 @@ module.exports = function (app) {
       res.header('Access-Control-Allow-Headers', 'X-Forwarded-For, X-Requested-With, Content-Type, Content-Length, Authorization, Accept')
       res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
       res.header('Content-Type', 'application/json;charset=utf-8')
-      if (req.method === 'OPTIONS') { res.sendStatus(200) } else { next() }
+      if (req.method === 'OPTIONS') {
+        res.sendStatus(200)
+      } else {
+        next()
+      }
     })
 
     // 启动ms服务器
@@ -99,6 +103,12 @@ module.exports = function (app) {
     if (app.config.lng) {
       let router = express.Router()
       servers.http.middle = router
+      if (app.config.debug) {
+        router.use(function (req, res, next) {
+          logger.debug('%s %s params: %j query: %j body: %j headers: %j', req.method, req.url, req.params, req.query, req.body, req.headers)
+          next()
+        })
+      }
       router.use(function (req, res, next) {
         req.lng = app.config.lng
         next()
@@ -111,16 +121,16 @@ module.exports = function (app) {
   }
 
   /**
-     * 停止服务器
-     * @method server#stop
-     * 成功响应:
-     * doc: 结果true成功 false失败
-     * 错误响应:
-     * doc: {
+   * 停止服务器
+   * @method server#stop
+   * 成功响应:
+   * doc: 结果true成功 false失败
+   * 错误响应:
+   * doc: {
      *  err: 错误码,
      *  msg: 错误信息
      * }
-     */
+   */
   app.close = function (opts, cb) {
     this.emit('beforeClose', opts)
     if (server) {
