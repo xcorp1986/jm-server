@@ -100,20 +100,22 @@ module.exports = function (app) {
       })
     }
 
+    let router = express.Router()
+    servers.http.middle = router
+    if (app.config.debug) {
+      router.use(function (req, res, next) {
+        logger.debug('%s %s params: %j query: %j body: %j headers: %j', req.method, req.url, req.params, req.query, req.body, req.headers)
+        next()
+      })
+    }
     if (app.config.lng) {
-      let router = express.Router()
-      servers.http.middle = router
-      if (app.config.debug) {
-        router.use(function (req, res, next) {
-          logger.debug('%s %s params: %j query: %j body: %j headers: %j', req.method, req.url, req.params, req.query, req.body, req.headers)
-          next()
-        })
-      }
       router.use(function (req, res, next) {
         req.lng = app.config.lng
         next()
       })
     }
+
+    router.use(this.httpProxyRouter)
 
     this.emit('open', opts)
     if (cb) cb(null, true)

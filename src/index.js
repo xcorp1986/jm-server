@@ -39,6 +39,7 @@ let server = function (opts = {}) {
     clear: function () {
       this.root = ms.router()
       this.router = ms.router()
+      this.httpProxyRouter = express.Router()
       this.moduleConfigs = {}
       this.modules = {}
       this.routers = {}
@@ -98,8 +99,7 @@ let server = function (opts = {}) {
      * }
      * @returns {Object}
      */
-    use: function (name, opts) {
-      opts || (opts = {})
+    use: function (name = '', opts = {}) {
       if (typeof opts === 'string') {
         opts = {module: opts}
       }
@@ -114,26 +114,25 @@ let server = function (opts = {}) {
 
       let module = null
       let router = null
-      if (opts.proxy) {
-        if (opts.direct) {
-          router = express.Router()
-          let changeOrigin = true
-          if (opts.changeOrigin !== undefined) changeOrigin = opts.changeOrigin
-          let options = {
-            target: opts.proxy,
-            changeOrigin: changeOrigin, // needed for virtual hosted sites
-            onProxyReq: function (proxyReq, req, res) {
-            },
-            onProxyRes: function (proxyRes, req, res) {
-            }
-          }
-          router.use(proxy(opts.prefix || '/', options))
 
-          app.on('open', function () {
-            app.servers.http.middle.use(router)
-          })
-          module = router
-        } else {
+      if (opts.httpProxy) {
+        let changeOrigin = true
+        if (opts.changeOrigin !== undefined) changeOrigin = opts.changeOrigin
+        let options = {
+          target: opts.httpProxy,
+          changeOrigin: changeOrigin, // needed for virtual hosted sites
+          onProxyReq: function (proxyReq, req, res) {
+          },
+          onProxyRes: function (proxyRes, req, res) {
+          }
+        }
+        let prefix = '/' + name
+        router = express.Router()
+        router.use(proxy(opts.prefix || prefix, options))
+        this.httpProxyRouter.use(router)
+        module = router
+      } else {
+        if (opts.proxy) {
           router = ms.router()
           module = router
           router.proxy('/', opts.proxy, function (err, doc) {
@@ -141,35 +140,34 @@ let server = function (opts = {}) {
               return logger.warn('proxy failed. %j\nreturn: %j\n%s', opts, doc || '', err.stack)
             }
           })
-        }
-      } else {
-        opts.module || (opts.module = name)
-        if (!opts.module && !opts.require) {
-          logger.warn('use failed. %s: %j', name, opts)
-          return this
-        }
-        let Module = require(opts.module)
-        if (typeof Module === 'function') {
-          module = Module.call(app, opts.config || config, app)
         } else {
-          module = Module
-        }
+          opts.module || (opts.module = name)
+          if (!opts.module && !opts.require) {
+            logger.warn('use failed. %s: %j', name, opts)
+            return this
+          }
+          let Module = require(opts.module)
+          if (typeof Module === 'function') {
+            module = Module.call(app, opts.config || config, app)
+          } else {
+            module = Module
+          }
 
-        if (module) {
-          if (module.request || module.handle) {
-            router = module
-          } else if (module.router && !opts.noRouter) {
-            router = module.router()
+          if (module) {
+            if (module.request || module.handle) {
+              router = module
+            } else if (module.router && !opts.noRouter) {
+              router = module.router()
+            }
           }
         }
-      }
 
-      name || (name = '')
-      if (router) {
-        let prefix = '/' + name
-        opts.config && opts.config.prefix && (prefix = opts.config.prefix)
-        opts.prefix && (prefix = opts.prefix)
-        this.router.use(prefix, router)
+        if (router) {
+          let prefix = '/' + name
+          opts.config && opts.config.prefix && (prefix = opts.config.prefix)
+          opts.prefix && (prefix = opts.prefix)
+          this.router.use(prefix, router)
+        }
       }
 
       this.moduleConfigs[name] = opts
