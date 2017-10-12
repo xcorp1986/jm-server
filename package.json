@@ -1,6 +1,6 @@
 {
   "name": "jm-server",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "a general server using jm-ms",
   "main": "./lib/index",
   "scripts": {
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/jm-root/jm-server",
   "dependencies": {
     "colors": "^1.1.2",
+    "http-proxy-middleware": "^0.17.4",
     "jm-log4js": "^1.1.0",
     "jm-ms": "^1.0.0",
     "jm-ms-help": "^1.0.0",

@@ -42,6 +42,10 @@ var config = {
             oms: {
                 proxy: 'http://localhost:20170/oms' //proxy指令, 把对于模块的请求转发到指定URI
             },
+            pay: {
+                httpProxy: 'http://localhost:20170', //httpProxy指令, 透传，直接转发
+                prefix: '/pay'
+            },
             config: {
                 module: 'jm-config'
             }
