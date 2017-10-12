@@ -1,16 +1,12 @@
 import proxy from 'http-proxy-middleware'
 import express from 'express'
-import JM from 'jm-core'
-import moduleLog4js from 'jm-log4js'
+import log from 'jm-log4js'
 import _ms from 'jm-ms'
 import routerHelp from './help'
 import routerModule from './module'
 
-let jm = new JM()
-jm.use(moduleLog4js)
-
 let ms = _ms()
-let logger = jm.getLogger('jm-server')
+let logger = log.getLogger('jm-server')
 
 /**
  * server

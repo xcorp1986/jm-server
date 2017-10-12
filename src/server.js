@@ -1,18 +1,12 @@
-import JM from 'jm-core'
-import moduleLog4js from 'jm-log4js'
+import log from 'jm-log4js'
 import MS from 'jm-ms-core'
 import msHttp from 'jm-ms-http'
 import msWS from 'jm-ms-ws'
-
 import http from 'http'
 import express from 'express'
 import bodyParser from 'body-parser'
 
-let jm = new JM()
-jm.use(moduleLog4js)
-
-let logger = jm.getLogger('jm-server')
-
+let logger = log.getLogger('jm-server')
 let ms = new MS()
 ms
   .use(msHttp.moduleServer)
