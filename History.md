@@ -1,5 +1,8 @@
 # History
 
+## 1.0.9 / 2017-10-12
+- remove jm-core
+
 ## 1.0.6 / 2017-08-24
 - fix trustProxy bug
 - logger in debug mode
