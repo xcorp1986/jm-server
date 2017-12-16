@@ -1,6 +1,8 @@
 import proxy from 'http-proxy-middleware'
 import express from 'express'
+import event from 'jm-event'
 import log from 'jm-log4js'
+import util from 'jm-utils'
 import _ms from 'jm-ms'
 import routerHelp from './help'
 import routerModule from './module'
@@ -25,9 +27,6 @@ let server = function (opts = {}) {
   ['host', 'port', 'debug', 'prefix', 'trustProxy', 'lng', 'disableAutoInit', 'disableAutoOpen', 'maxBodySize'].forEach(function (key) {
     process.env[key] && (config[key] = process.env[key])
   })
-  if (config.debug) {
-    logger.debug('config: %s', jm.utils.formatJSON(config))
-  }
 
   let app = {
     config: config,
@@ -199,13 +198,16 @@ let server = function (opts = {}) {
       if (r) r.clear()
     }
   }
-  jm.enableEvent(app)
+  event.enableEvent(app)
 
   require('./server')(app)
   if (!opts.disableAutoInit) app.init()
   if (!opts.disableAutoOpen) app.open()
+  if (config.debug) {
+    logger.debug('config: %s', util.utils.formatJSON(config))
+  }
   return app
 }
-jm.enableEvent(server)
+event.enableEvent(server)
 
 export default server

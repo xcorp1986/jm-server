@@ -33,7 +33,7 @@ if (typeof module !== 'undefined' && module.exports) {
       logger.debug('test ws')
 
       ms.client({
-        uri: 'ws://localhost:21000',
+        uri: 'ws://localhost:3000',
         reconnect: true
       }, function (err, doc) {
         var client = doc
@@ -78,7 +78,7 @@ if (typeof module !== 'undefined' && module.exports) {
       logger.debug('test http')
 
       ms.client({
-        uri: 'http://localhost:21000'
+        uri: 'http://localhost:3000'
       }, function (err, doc) {
         doc.request(opts.request, function (err, doc) {
           log(err, doc)
