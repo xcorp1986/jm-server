@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app",
     "cluster": "node cluster",
-    "test": "node node_modules/babel-cli/bin/babel-node ./node_modules/mocha/bin/_mocha test"
+    "test": "babel-node ./node_modules/mocha/bin/_mocha test"
   },
   "repository": {
     "type": "git",
