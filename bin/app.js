@@ -2,7 +2,6 @@
 
 'use strict'
 var colors = require('colors')
-var os = require('os')
 var fs = require('fs')
 var path = require('path')
 var argv = require('yargs')
@@ -24,7 +23,7 @@ root || (root = process.cwd())
 
 var config = null
 configure()
-module.exports = start_app()
+module.exports = startApp()
 
 function configure () {
   var configFile = argv.c
@@ -47,21 +46,21 @@ function configure () {
   })
 }
 
-function start_app () {
+function startApp () {
   return require('../lib')(config)
 }
 
-function stop_app () {
+function stopApp () {
   console.log('jm-server stopped.'.red)
   process.exit()
 }
 
 process.on('SIGINT', function () {
-  stop_app()
+  stopApp()
 })
 
 process.on('SIGTERM', function () {
-  stop_app()
+  stopApp()
 })
 
 process.on('uncaughtException', function (err) {
