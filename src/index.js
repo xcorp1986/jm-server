@@ -37,10 +37,17 @@ let server = function (opts = {}) {
     trustProxy: 'trust_proxy'
   }
   Object.keys(o).forEach(function (key) {
+    let bWarn = false
+    if (config[key] !== undefined) {
+      config[o[key]] = config[key]
+      delete config[key]
+      bWarn = true
+    }
     if (process.env[key]) {
       config[o[key]] = process.env[key]
-      logger.warn(`${key} deprecated, please use ${o[key]}`)
+      bWarn = true
     }
+    bWarn && (logger.warn(`${key} deprecated, please use ${o[key]}`))
   })
   // ---- deprecated end ----
 
