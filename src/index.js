@@ -23,10 +23,26 @@ let logger = log.getLogger('jm-server')
  * 返回结果: server对象
  */
 let server = function (opts = {}) {
-  let config = opts;
-  ['host', 'port', 'debug', 'prefix', 'trustProxy', 'lng', 'disableAutoInit', 'disableAutoOpen', 'maxBodySize'].forEach(function (key) {
+  let config = opts
+  const v = ['host', 'port', 'debug', 'prefix', 'trust_proxy', 'lng', 'no_auto_init', 'no_auto_open', 'max_body_size']
+  v.forEach(function (key) {
     process.env[key] && (config[key] = process.env[key])
   })
+
+  // ---- deprecated begin ----
+  const o = {
+    disableAutoInit: 'no_auto_init',
+    disableAutoOpen: 'no_auto_open',
+    maxBodySize: 'max_body_size',
+    trustProxy: 'trust_proxy'
+  }
+  Object.keys(o).forEach(function (key) {
+    if (process.env[key]) {
+      config[o[key]] = process.env[key]
+      logger.warn(`${key} deprecated, please use ${o[key]}`)
+    }
+  })
+  // ---- deprecated end ----
 
   let app = {
     config: config,
@@ -50,7 +66,7 @@ let server = function (opts = {}) {
           next()
         })
       }
-      if (!config.trustProxy) {
+      if (!config.trust_proxy) {
         this.root.use(function (opts, cb, next) {
           if (opts.headers && opts.headers['x-forwarded-for']) {
             delete opts.headers['x-forwarded-for']
@@ -201,8 +217,8 @@ let server = function (opts = {}) {
   event.enableEvent(app)
 
   require('./server')(app)
-  if (!opts.disableAutoInit) app.init()
-  if (!opts.disableAutoOpen) app.open()
+  if (!opts.no_auto_init) app.init()
+  if (!opts.no_auto_open) app.open()
   if (config.debug) {
     logger.debug('config: %s', util.utils.formatJSON(config))
   }

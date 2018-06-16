@@ -1,4 +1,5 @@
 import MS from 'jm-ms-core'
+
 let ms = new MS()
 
 module.exports = function (app) {
