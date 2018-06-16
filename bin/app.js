@@ -37,8 +37,7 @@ function configure () {
   try {
     fs.accessSync(configFile, fs.constants.R_OK)
     config = require(configFile)
-  }
-  catch (e) {
+  } catch (e) {
     console.warn('no config file found %s'.red, configFile)
     console.error(e.stack)
   }

@@ -36,7 +36,6 @@ if (cluster.isMaster) {
 
   cluster.on('exit', function (worker, code, signal) {
   })
-
 } else if (cluster.isWorker) {
   require('./app')
 }
