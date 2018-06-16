@@ -44,15 +44,15 @@ module.exports = function (app) {
     server = http.createServer(appWeb).listen(port, host, function () {
       logger.info('ms server listening on %s:%s ', host, server.address().port)
     })
-    if (config.maxBodySize) {
-      appWeb.use(bodyParser.json({limit: config.maxBodySize}))
-      appWeb.use(bodyParser.urlencoded({limit: config.maxBodySize, extended: true}))
+    if (config.max_body_size) {
+      appWeb.use(bodyParser.json({limit: config.max_body_size}))
+      appWeb.use(bodyParser.urlencoded({limit: config.max_body_size, extended: true}))
     } else {
       appWeb.use(bodyParser.json())
       appWeb.use(bodyParser.urlencoded({extended: true}))
     }
     let trustProxy = false
-    config.trustProxy && (trustProxy = true)
+    config.trust_proxy && (trustProxy = true)
     appWeb.set('trust proxy', trustProxy) // 支持代理后面获取用户真实ip
 
     // 设置跨域访问

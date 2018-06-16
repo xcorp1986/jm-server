@@ -20,11 +20,17 @@ host   ['0.0.0.0'] 监听IP地址
 
 prefix [''] Uri前缀
 
-trustProxy [false] 是否传递IP地址
+trust_proxy [false] 是否传递IP地址
 
 lng [''] 语言
 
 maxcpus 只支持环境变量设置, 限制cluster运行模式时能够使用的最多cpu数量, 默认使用全部
+
+max_body_size ['100kb'] 设置允许请求的body的大小, 例如 '5mb'
+
+no_auto_init [false] 一般用不到此选项，是否禁止自动初始化，
+
+no_auto_open [false] 一般用不到此选项，是否禁止自动开放服务器端口，即开始listen
 
 ## config/index.js
 
