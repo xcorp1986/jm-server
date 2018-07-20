@@ -81,12 +81,6 @@ let server = function (opts = {}) {
           next()
         })
       }
-      if (config.debug) {
-        this.root.use(function (opts, cb, next) {
-          logger.debug('request: %j', opts)
-          next()
-        })
-      }
       routerHelp(this)
       if (config.modules) app.uses(config.modules)
       this.emit('uses', this)
